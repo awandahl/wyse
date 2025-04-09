@@ -1,8 +1,9 @@
 # wyse
 
+```
 ### QMX
 
-```
+
 aw@solar:~$ udevadm info -a -n /dev/ttyACM0 | grep -E "idVendor|idProduct|KERNELS"
     KERNELS=="1-3:1.0"
     KERNELS=="1-3"
