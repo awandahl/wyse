@@ -230,3 +230,171 @@ By following this workflow, you’ll have a robust setup where each device is pe
 
 [^20]: https://itsfoss.com/find-mac-address-linux/
 
+
+Here’s how to configure your `systemd` services to run as the user `aw`:
+
+---
+
+### **1. Modify the Service Files**
+
+For each service file (e.g., `rigctld-qmx.service`, `rigctld-winkeyer.service`), add or modify the following entries:
+
+```ini
+[Service]
+User=aw
+Group=aw
+```
+
+
+#### Example: `/etc/systemd/system/rigctld-qmx.service`
+
+```ini
+[Unit]
+Description=Rigctld for QMX Radio
+After=network.target
+
+[Service]
+User=aw
+Group=aw
+ExecStart=/usr/local/bin/rigctld \
+  -m 2057 \
+  -r /dev/ttyQMX \
+  -s 115200 \
+  -t 4533
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target
+```
+
+---
+
+### **2. Ensure User Has Necessary Permissions**
+
+The user `aw` must have access to the serial devices (`/dev/tty*`) and any symlinks created by udev.
+
+#### Add `aw` to the `dialout` Group
+
+The `dialout` group typically has access to serial devices. Add the user `aw` to this group:
+
+```bash
+sudo usermod -a -G dialout aw
+```
+
+Log out and log back in for the group membership changes to take effect.
+
+---
+
+### **3. Reload and Restart Services**
+
+After modifying the service files, reload the systemd configuration and restart the services:
+
+```bash
+sudo systemctl daemon-reload
+
+# Restart services as user "aw"
+sudo systemctl restart rigctld-qmx.service
+sudo systemctl restart rigctld-winkeyer.service
+```
+
+---
+
+### **4. Verify Services Are Running as User `aw`**
+
+Check the status of a service to confirm it is running under the correct user:
+
+```bash
+systemctl status rigctld-qmx.service
+```
+
+Look for a line like this:
+
+```
+Main PID: 1234 (rigctld)
+Tasks: 1 (limit: 4678)
+Memory: 2.3M
+CGroup: /system.slice/rigctld-qmx.service
+         └─1234 /usr/local/bin/rigctld -m 2057 -r /dev/ttyQMX -s 115200 -t 4533
+
+User=aw
+Group=aw
+```
+
+---
+
+### **5. Optional: Run User Services in User Context**
+
+If you prefer, you can create **user-specific systemd services** that run in the user's context instead of globally. These services are managed by the user and do not require `sudo`.
+
+#### Step 1: Create a User Service Directory
+
+Create a directory for user-specific services:
+
+```bash
+mkdir -p ~/.config/systemd/user/
+```
+
+
+#### Step 2: Add a Service File for Each Device
+
+For example, create a service for QMX:
+
+```bash
+nano ~/.config/systemd/user/rigctld-qmx.service
+```
+
+Add:
+
+```ini
+[Unit]
+Description=Rigctld for QMX Radio
+
+[Service]
+ExecStart=/usr/local/bin/rigctld \
+  -m 2057 \
+  -r /dev/ttyQMX \
+  -s 115200 \
+  -t 4533
+
+[Install]
+WantedBy=default.target
+```
+
+
+#### Step 3: Enable and Start User Services
+
+Reload systemd for the user and enable/start the service:
+
+```bash
+systemctl --user daemon-reload
+
+# Enable and start service for QMX radio
+systemctl --user enable rigctld-qmx.service
+systemctl --user start rigctld-qmx.service
+
+# Check status of service
+systemctl --user status rigctld-qmx.service
+```
+
+
+#### Step 4: Enable User Services at Boot (Optional)
+
+To ensure user services start at boot, enable lingering for the user:
+
+```bash
+sudo loginctl enable-linger aw
+```
+
+This allows user services to start even if no one is logged in.
+
+---
+
+### **Summary**
+
+- To run services as `aw`, add `User=aw` and `Group=aw` in your service files.
+- Ensure `aw` has access to serial devices by adding it to the `dialout` group.
+- Optionally, use **user-specific systemd services** if you prefer managing them in the user's context.
+
+This setup ensures your services are running with minimal privileges while maintaining proper functionality. Let me know if you need further assistance!
+
