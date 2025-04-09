@@ -2,6 +2,7 @@
 
 ### QMX
 
+```
 aw@solar:~$ udevadm info -a -n /dev/ttyACM0 | grep -E "idVendor|idProduct|KERNELS"
     KERNELS=="1-3:1.0"
     KERNELS=="1-3"
@@ -33,7 +34,7 @@ aw@solar:~$ udevadm info -a -n /dev/ttyUSB0 | grep -E "idVendor|idProduct|KERNEL
     ATTRS{dbc_idProduct}=="0010"
     ATTRS{dbc_idVendor}=="1d6b"
     KERNELS=="pci0000:00"
-
+```
 
 
 ## **1. Identify Devices and Ports**
