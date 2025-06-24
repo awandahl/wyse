@@ -1,4 +1,21 @@
 # wyse
+````
+[Unit]
+Description=PyWinKeyerSerial
+After=network.target
+
+[Service]
+User=aw
+Group=aw
+ExecStart=/usr/local/bin/winkeyerserial  # Install to system path
+Restart=always
+RestartSec=5
+Environment="QT_QPA_PLATFORM=offscreen"
+Environment="PATH=/usr/local/bin:/usr/bin:/bin"
+
+[Install]
+WantedBy=multi-user.target
+````
 
 ```
 ### QMX
