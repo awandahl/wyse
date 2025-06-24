@@ -1,5 +1,9 @@
 # wyse
-````
+
+### systemd winkeyerserial
+Install winkeyerserial to system path.
+
+```
 [Unit]
 Description=PyWinKeyerSerial
 After=network.target
@@ -15,7 +19,53 @@ Environment="PATH=/usr/local/bin:/usr/bin:/bin"
 
 [Install]
 WantedBy=multi-user.target
-````
+```
+### systemd Elecraft K2
+```
+[Unit]
+Description=Rigctld for Elecraft K2 Radio
+After=network.target
+
+[Service]
+User=aw
+Group=aw
+ExecStart=/usr/local/bin/rigctld \
+  -m 2021 \
+  -r /dev/ttyK2 \
+  -s 4800 \
+  -t 4532
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target
+
+```
+### systemd QMX
+```
+[Unit]
+Description=Rigctld for QMX Radio
+After=network.target
+
+[Service]
+User=aw
+Group=aw
+ExecStart=/usr/local/bin/rigctld \
+  -m 2057 \
+  -r /dev/ttyQMX \
+  -s 115200 \
+  -t 4533
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target
+
+
+```
+
+
+
 
 ```
 ### QMX
