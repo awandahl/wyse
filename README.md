@@ -41,7 +41,8 @@ WantedBy=multi-user.target
 ```
 
 rigctld-qmx.service
-```[Unit]
+```
+[Unit]
 Description=Rigctld for QMX Radio
 After=network.target
 
