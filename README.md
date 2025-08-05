@@ -1,5 +1,6 @@
 # Wyse NEW
 
+rigctld-k2.service
 ```
 [Unit]
 Description=Rigctld for Elecraft K2 Radio
@@ -18,9 +19,34 @@ RestartSec=5
 
 [Install]
 WantedBy=multi-user.target
-``
+```
 
+rigctld-qmx.service
+```[Unit]
+Description=Rigctld for QMX Radio
+After=network.target
 
+[Service]
+User=aw
+Group=aw
+ExecStart=/usr/local/bin/rigctld \
+# TS480
+#  -m 2028 \
+# QMX latest
+#  -m 2057 \
+# QCX/QDX
+  -m 2052 \
+# TS440
+#  -m 2002 \
+  -r /dev/ttyQMX \
+  -s 115200 \
+  -t 4533
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target
+```
 
 
 
