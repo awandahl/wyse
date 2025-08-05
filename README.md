@@ -67,7 +67,7 @@ RestartSec=5
 WantedBy=multi-user.target
 ```
 
-cwdaemon.service
+cwdaemon.service (default port 6789)
 ```
 [Unit]
 Description=CWdaemon service for keying
@@ -87,7 +87,42 @@ Environment="PATH=/usr/local/bin:/usr/bin:/bin:/usr/sbin"
 WantedBy=multi-user.target
 ```
 
+# systemctl
 
+### Basic systemctl Commands
+
+| Command | Description |
+| :-- | :-- |
+| systemctl status [service] | See status of a service (running, errors, logs) |
+| systemctl start [service] | Start a service NOW |
+| systemctl stop [service] | Stop a service |
+| systemctl restart [service] | Restart (stop \& start) a service |
+| systemctl reload [service] | Reload config of a service (if supported) |
+| systemctl enable [service] | Enable service to start at boot |
+| systemctl disable [service] | Disable service from starting at boot |
+| systemctl is-active [service] | Is the service running now? |
+| systemctl is-enabled [service] | Is the service enabled to autostart at boot? |
+| systemctl list-units --type=service | List all currently loaded/running services |
+| systemctl list-unit-files --type=service | List all services (enabled/disabled/etc) |
+
+### System Power Commands
+
+| Command | Description |
+| :-- | :-- |
+| systemctl reboot | Reboot the system |
+| systemctl poweroff | Shut down the system |
+| systemctl suspend | Suspend (sleep) the system |
+| systemctl hibernate | Hibernate the system |
+| systemctl halt | Halt the system |
+
+### System State / Target Commands
+
+| Command | Description |
+| :-- | :-- |
+| systemctl get-default | Show default system target/runlevel |
+| systemctl set-default X | Change default target (e.g. multi-user.target, graphical.target) |
+| systemctl isolate X.target | Switch to a different system state |
+| systemctl rescue | Enter rescue (single-user) mode |
 
 # wyse OLD
 
