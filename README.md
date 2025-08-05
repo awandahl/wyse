@@ -48,6 +48,26 @@ RestartSec=5
 WantedBy=multi-user.target
 ```
 
+cwdaemon.service
+```
+[Unit]
+Description=CWdaemon service for keying
+After=dev-ttyS0.device
+Requires=dev-ttyS0.device
+
+[Service]
+Type=forking
+User=aw
+Group=aw
+ExecStart=/usr/sbin/cwdaemon -d ttyS0 -x n
+Restart=always
+RestartSec=5
+Environment="PATH=/usr/local/bin:/usr/bin:/bin:/usr/sbin"
+
+[Install]
+WantedBy=multi-user.target
+```
+
 
 
 # wyse OLD
