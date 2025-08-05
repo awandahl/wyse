@@ -1,4 +1,30 @@
-# wyse
+# Wyse NEW
+
+```
+[Unit]
+Description=Rigctld for Elecraft K2 Radio
+After=network.target
+
+[Service]
+User=aw
+Group=aw
+ExecStart=/usr/local/bin/rigctld \
+  -m 2021 \
+  -r /dev/ttyK2 \
+  -s 4800 \
+  -t 4532
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target
+``
+
+
+
+
+
+# wyse OLD
 
 ### systemd winkeyerserial
 Install winkeyerserial to system path.
