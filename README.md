@@ -1,5 +1,24 @@
 # Wyse NEW
 
+#### /etc/udev/rules.d
+
+99-radio-devices.rules
+```
+# QMX Radio
+ACTION=="add", SUBSYSTEM=="tty", ATTRS{idVendor}=="0483", ATTRS{idProduct}=="a34c", SYMLINK+="ttyQMX", MODE="0666", GROUP="dialout"
+
+# Winkeyer Large Keyer
+# ACTION=="add", SUBSYSTEM=="tty", ATTRS{idVendor}=="1a86", ATTRS{idProduct}=="7523", SYMLINK+="ttyWinkeyer", MODE="0666", GROUP="dialout"
+
+# K3NG keyer for cwdaemon
+ACTION=="add", SUBSYSTEM=="tty", ATTRS{idVendor}=="1a86", ATTRS{idProduct}=="7523", SYMLINK+="ttyCW", MODE="0666", GROUP="dialout"
+
+# Elecraft K2
+ACTION=="add", SUBSYSTEM=="tty", ATTRS{idVendor}=="0403", ATTRS{idProduct}=="6001", SYMLINK+="ttyK2", MODE="0666", GROUP="dialout"
+```
+
+#### /etc/systemd/system
+
 rigctld-k2.service
 ```
 [Unit]
