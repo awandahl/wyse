@@ -94,6 +94,7 @@ WantedBy=multi-user.target
 
 | Command | Description |
 | :-- | :-- |
+| systemctl daemon-reload | Instructs systemd to reload its configuration files |
 | systemctl status [service] | See status of a service (running, errors, logs) |
 | systemctl start [service] | Start a service NOW |
 | systemctl stop [service] | Stop a service |
@@ -116,14 +117,6 @@ WantedBy=multi-user.target
 | systemctl hibernate | Hibernate the system |
 | systemctl halt | Halt the system |
 
-### System State / Target Commands
-
-| Command | Description |
-| :-- | :-- |
-| systemctl get-default | Show default system target/runlevel |
-| systemctl set-default X | Change default target (e.g. multi-user.target, graphical.target) |
-| systemctl isolate X.target | Switch to a different system state |
-| systemctl rescue | Enter rescue (single-user) mode |
 
 # wyse OLD
 
