@@ -1,6 +1,6 @@
 # Wyse NEW
 
-#### /etc/udev/rules.d
+### /etc/udev/rules.d
 
 99-radio-devices.rules
 ```
@@ -16,8 +16,20 @@ ACTION=="add", SUBSYSTEM=="tty", ATTRS{idVendor}=="1a86", ATTRS{idProduct}=="752
 # Elecraft K2
 ACTION=="add", SUBSYSTEM=="tty", ATTRS{idVendor}=="0403", ATTRS{idProduct}=="6001", SYMLINK+="ttyK2", MODE="0666", GROUP="dialout"
 ```
+# udev
 
-#### /etc/systemd/system
+#### Basic udev commands
+
+| Command | Purpose |
+| :-- | :-- |
+| `udevadm control --reload` | Reload udev rules files |
+| `udevadm trigger` | Re-evaluate all present devices |
+| `udevadm trigger --subsystem-match=usb` | Re-evaluate only USB devices |
+| (Unplug/replug device) | Physically re-trigger rule for device |
+
+**You do NOT need to reboot after updating udev rules**—these commands are sufficient for almost all changes to `/etc/udev/rules.d/`.
+
+### /etc/systemd/system
 
 rigctld-k2.service
 ```
@@ -90,7 +102,7 @@ WantedBy=multi-user.target
 
 # systemctl
 
-### Basic systemctl Commands
+#### Basic systemctl Commands
 
 | Command | Description |
 | :-- | :-- |
