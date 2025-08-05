@@ -3,7 +3,7 @@
 ### /etc/udev/rules.d
 
 99-radio-devices.rules
-```bash
+```ini
 # QMX Radio
 ACTION=="add", SUBSYSTEM=="tty", ATTRS{idVendor}=="0483", ATTRS{idProduct}=="a34c", SYMLINK+="ttyQMX", MODE="0666", GROUP="dialout"
 
@@ -32,7 +32,7 @@ ACTION=="add", SUBSYSTEM=="tty", ATTRS{idVendor}=="0403", ATTRS{idProduct}=="600
 ### /etc/systemd/system
 
 rigctld-k2.service
-```bash
+```ini
 [Unit]
 Description=Rigctld for Elecraft K2 Radio
 After=network.target
@@ -53,7 +53,7 @@ WantedBy=multi-user.target
 ```
 
 rigctld-qmx.service
-```bash
+```ini
 [Unit]
 Description=Rigctld for QMX Radio
 After=network.target
@@ -81,7 +81,7 @@ WantedBy=multi-user.target
 ```
 
 cwdaemon.service (default port 6789)
-```bash
+```ini
 [Unit]
 Description=CWdaemon service for keying
 After=dev-ttyS0.device
